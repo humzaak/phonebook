@@ -6,14 +6,14 @@ import List from './components/List'
 import './App.css'
 import PersonForm from './components/PersonForm'
 import PersonService from './services/persons'
-
+import Notification from './components/Notification'
 
 const App = () => {
 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ filterValue, setFilterValue ] = useState('')
-
+  const [errorMessage, seterrorMessage]  = useState(null)
 
   const [ persons, setPersons ] = useState([]) 
 
@@ -37,7 +37,12 @@ const App = () => {
           setPersons(allNames)
         })
       })
-
+      .catch(error=> {
+          seterrorMessage("This value is not on server")
+          setTimeout(()=>seterrorMessage(null),3000)
+          setPersons(persons.filter(person=>person.id !== id))
+          }
+      )
     }
    
 
@@ -52,7 +57,7 @@ const App = () => {
 
 
       <h2>Add new</h2>
-
+      <Notification message = {errorMessage}/>
       <PersonForm newName = {newName} newNumber = {newNumber} setNewName = {setNewName} setNewNumber = {setNewNumber} setPersons ={setPersons} persons = {persons}/>
 
 
