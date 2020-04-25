@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
+import PersonService from '../services/persons'
 
 
 const PersonForm = (props) => {
@@ -34,9 +35,15 @@ const PersonForm = (props) => {
           name: newName,
           number:newNumber
         }
-        setPersons(persons.concat(newPerson))
-        setNewName('')
-        setNewNumber('')
+
+        PersonService.create(newPerson)
+        .then(returnedPerson => {
+          console.log(returnedPerson)
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+          setNewNumber('')
+        })
+
       } 
     
       const handleValueChange = (event) => {
@@ -50,7 +57,7 @@ const PersonForm = (props) => {
         setNewNumber(event.target.value)
       }
     
-    
+     
    
    
    

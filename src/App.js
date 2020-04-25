@@ -5,6 +5,7 @@ import Filter from './components/Filter'
 import List from './components/List'
 import './App.css'
 import PersonForm from './components/PersonForm'
+import PersonService from './services/persons'
 
 
 const App = () => {
@@ -18,16 +19,30 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
+    PersonService.getAll()
+      .then(allNames => {
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(allNames)
       })
   }, [])
 
+  const deleteName = (id) => { 
+   const toBeDeleted =  persons.filter((person)=>person.id === id)
+    if (window.confirm(`Delete ${toBeDeleted[0].name}  ?`)) { 
+      PersonService.deleteData(id)
+      .then(returnedNote => {
+        PersonService.getAll()
+        .then(allNames => {
+          console.log('promise fulfilled')
+          setPersons(allNames)
+        })
+      })
 
+    }
+   
 
+   
+  }
 
   return (
     <div>
@@ -43,7 +58,7 @@ const App = () => {
 
 
       <h2>Numbers</h2>
-       <List persons = {persons}/>
+       <List persons = {persons} Delete = {deleteName}/>
      
 
     </div>

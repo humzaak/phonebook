@@ -12,7 +12,8 @@ console.log(persons)
     
     persons.map 
      ((person)=>
-    <Data key={person.name} name= {person.name} number={person.number}/>
+    <Data key={person.name} id={person.id} name= {person.name} number={person.number} Delete = {props.Delete}/>
+
     )
     
     }
