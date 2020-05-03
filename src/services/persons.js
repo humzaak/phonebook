@@ -1,16 +1,22 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons'
+const baseUrl = 'http://localhost:3001/api/persons'
+
 
 const getAll = () => {
     const request = axios.get(baseUrl)
-  //  return request.then(response => response.data)
+    return request.then((response) => {
 
-    const nonExisting = {
+       console.log(response.data)
+       return response.data
+    
+    })
+
+   /* const nonExisting = {
         id: 10000,
         name: 'This note is not saved to server',
         number: '2019-05-30T17:30:31.098Z',
       }
-    return request.then(response => response.data.concat(nonExisting))
+    return request.then(response => response.data.concat(nonExisting))*/
 }
 
 const create = newObject => {

@@ -8,5 +8,7 @@ const Data = (props) => {
     </li>
   )
 }
+//    "server": "json-server -p3001 --watch db.json"
+
 
 export default Data
